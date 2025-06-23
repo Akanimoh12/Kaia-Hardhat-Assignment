@@ -8,5 +8,11 @@ contract MyToken {
     event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
     event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
 
-
+    // Next I declare my storages
+    string private _name;
+    string private _symbol;
+    mapping(uint256 => address) private _owners;
+    mapping(address => uint256) private _balance;
+    mapping(uint256 => address) private _tokenApprovals;
+    mapping(address => mapping(address => bool)) private _operatorApprovals;
 }
