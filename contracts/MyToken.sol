@@ -24,6 +24,23 @@ contract MyToken {
         return balances[account];
     }
 
+    function transfer(address to, uint256 value) public returns (bool) {
+        require(to != address(0), "Invalid address");
+        require(balances[msg.sender] >= value, "Insufficient balance");
+
+        balances[msg.sender] -= value;
+        balances[to] += value;
+        emit Transfer(msg.sender, to, value);
+        return true;
+    }
+
+    function approve(address spender, uint256 value) public returns (bool) {
+        require(spender != address(0), "Invalid address");
+        allowances[msg.sender][spender] = value;
+        emit Approval(msg.sender, spender, value);
+        return true;
+    }
+
 
 
     
