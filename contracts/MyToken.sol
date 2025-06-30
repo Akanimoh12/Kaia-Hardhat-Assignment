@@ -3,8 +3,8 @@ pragma solidity ^0.8.28;
 
 contract MyToken {
 
-    string public name = "MyToken";
-    string public symbol = "MTK";
+    string public name = "Akanimoh";
+    string public symbol = "AKA";
     uint8 public decimals = 18;
     uint256 public totalSupply;
 
