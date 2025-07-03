@@ -1,10 +1,9 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.28;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
 contract MyToken {
-
-    string public name = "Akanimoh";
-    string public symbol = "AKA";
+    string public name = "MyToken";
+    string public symbol = "MTK";
     uint8 public decimals = 18;
     uint256 public totalSupply;
 
@@ -41,19 +40,20 @@ contract MyToken {
         return true;
     }
 
+    function allowance(address owner, address spender) public view returns (uint256) {
+        return allowances[owner][spender];
+    }
 
+    function transferFrom(address from, address to, uint256 value) public returns (bool) {
+        require(from != address(0), "Invalid from address");
+        require(to != address(0), "Invalid to address");
+        require(balances[from] >= value, "Insufficient balance");
+        require(allowances[from][msg.sender] >= value, "Insufficient allowance");
 
-    
-    // // First I declare my event for the NFT
-    // event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-    // event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
-    // event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
-
-    // // Next I declare my storages
-    // string private _name;
-    // string private _symbol;
-    // mapping(uint256 => address) private _owners;
-    // mapping(address => uint256) private _balance;
-    // mapping(uint256 => address) private _tokenApprovals;
-    // mapping(address => mapping(address => bool)) private _operatorApprovals;
+        balances[from] -= value;
+        balances[to] += value;
+        allowances[from][msg.sender] -= value;
+        emit Transfer(from, to, value);
+        return true;
+    }
 }
